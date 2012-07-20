@@ -36,6 +36,8 @@ public class ParkingInfoDialog extends Dialog implements android.view.View.OnCli
 		layoutGasto.setOnClickListener(this);
 		LinearLayout layoutDirections = (LinearLayout) findViewById( R.id.layoutDirections);
 		layoutDirections.setOnClickListener(this);
+		LinearLayout layoutNavigate = (LinearLayout) findViewById( R.id.layoutNavigate);
+		layoutNavigate.setOnClickListener(this);
 		
 		Button btnPlus = (Button) findViewById( R.id.btnPlus);
 		btnPlus.setOnClickListener(this);
@@ -57,6 +59,9 @@ public class ParkingInfoDialog extends Dialog implements android.view.View.OnCli
 		case R.id.layoutDirections:
 			clickOnDirections();
 			break;
+		case R.id.layoutNavigate:
+			clickOnNavigate();
+			break;
 		case R.id.btnPlus:
 			incMin(1);
 			break;
@@ -67,7 +72,6 @@ public class ParkingInfoDialog extends Dialog implements android.view.View.OnCli
 			break;
 		}
 	}
-	
 	
 	private void clickOnGasto(){
 		LinearLayout layoutCounter = (LinearLayout) findViewById( R.id.layoutCounter);
@@ -84,6 +88,13 @@ public class ParkingInfoDialog extends Dialog implements android.view.View.OnCli
 				android.content.Intent.ACTION_VIEW,
 				Uri.parse("http://maps.google.com/maps?daddr=" + parking.getLatitud().toString() + "," + parking.getLongitud().toString()));
 		getContext().startActivity(intent);
+	}
+	
+	private void clickOnNavigate() {
+		String location = parking.getLatitud().toString() + "," + parking.getLongitud().toString();
+		Intent i = new Intent(Intent.ACTION_VIEW,
+		Uri.parse("google.navigation:q=" + location));
+		getContext().startActivity(i);
 	}
 	
 	private void showHide(View v){
